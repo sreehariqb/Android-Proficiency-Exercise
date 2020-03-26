@@ -47,5 +47,12 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+    //okhttp logging interceptor for network call logs in debug mode.
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
     kapt("groupId:artifactId:version")
 }
