@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SoftVision Test App</string>
+    <string name="row_item_image">Row item image</string>
 </resources>
