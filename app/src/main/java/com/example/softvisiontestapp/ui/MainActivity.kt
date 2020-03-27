@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         viewModel.apiResponseData.observe(this, Observer<ApiResponseData> { apiData ->
             listAdapter.rows = apiData.rows
+            supportActionBar?.title = apiData.title
         })
     }
 
