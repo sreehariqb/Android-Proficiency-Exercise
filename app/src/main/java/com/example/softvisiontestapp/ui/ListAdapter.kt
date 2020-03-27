@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.softvisiontestapp.R
 import com.example.softvisiontestapp.data.model.Row
+import com.squareup.picasso.Picasso
 
 class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
     var rows = listOf<Row>()
@@ -35,5 +36,7 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
         holder.titleView.setText(rows.get(position).title)
         holder.descriptionView.setText(rows.get(position).description)
+        Picasso.get().load(rows.get(position).imageHref)
+            .into(holder.imageView)
     }
 }

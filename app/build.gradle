@@ -47,4 +47,7 @@ dependencies {
 
     //okhttp logging interceptor for network call logs in debug mode.
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    //Picasso image loader library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
