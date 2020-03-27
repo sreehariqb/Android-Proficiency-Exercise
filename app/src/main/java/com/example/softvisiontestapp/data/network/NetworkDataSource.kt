@@ -2,7 +2,6 @@ package com.example.softvisiontestapp.data.network
 
 import android.content.Context
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.lifecycle.MutableLiveData
 import com.example.softvisiontestapp.data.model.ApiResponseData
 import retrofit2.Call
@@ -39,14 +38,14 @@ class NetworkDataSource private constructor(private val context: Context) {
     companion object {
         private var sInstance: NetworkDataSource? = null
 
-        fun getInstance(context: Context): NetworkDataSource? {
+        fun getInstance(context: Context): NetworkDataSource {
             if (sInstance == null) {
                 sInstance =
                     NetworkDataSource(
                         context
                     )
             }
-            return sInstance
+            return sInstance as NetworkDataSource
         }
     }
 

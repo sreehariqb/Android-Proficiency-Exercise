@@ -6,9 +6,6 @@ import com.example.softvisiontestapp.data.network.NetworkDataSource
 
 class Repository private constructor(private val networkDataSource: NetworkDataSource) {
 
-    /*val apiResponse: LiveData<ApiResponseData>
-        get() = networkDataSource.getNewsArticles()*/
-
     fun getAPIResponse(): LiveData<ApiResponseData> {
         return networkDataSource.getApiResponseData()
     }
@@ -16,11 +13,11 @@ class Repository private constructor(private val networkDataSource: NetworkDataS
     companion object {
         private var sInstance: Repository? = null
 
-        fun getInstance(networkDataSource: NetworkDataSource): Repository? {
+        fun getInstance(networkDataSource: NetworkDataSource): Repository {
             if (sInstance == null) {
                 sInstance = Repository(networkDataSource)
             }
-            return sInstance
+            return sInstance as Repository
         }
     }
 

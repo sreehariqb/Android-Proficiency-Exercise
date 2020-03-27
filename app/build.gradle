@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -21,14 +20,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    dataBinding {
-        enabled = true
-    }
-    kapt {
-        arguments {
-            arg("key", "value")
         }
     }
 }
@@ -53,6 +44,4 @@ dependencies {
 
     //okhttp logging interceptor for network call logs in debug mode.
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-
-    kapt("groupId:artifactId:version")
 }
