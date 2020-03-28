@@ -1,9 +1,8 @@
 package com.example.softvisiontestapp.data.network
 
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
-import com.example.softvisiontestapp.data.model.ApiResponseData
+import com.example.softvisiontestapp.data.model.APIResponse
+import com.example.softvisiontestapp.data.model.APIResponseData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,9 +10,9 @@ import retrofit2.Response
 /**
  * Handles network operations
  */
-class NetworkDataSource private constructor(private val context: Context) {
-    private val apiResponseData: MutableLiveData<ApiResponseData> = MutableLiveData()
-    fun getApiResponseData(): MutableLiveData<ApiResponseData> {
+object NetworkDataSource {
+    private val apiResponseData: MutableLiveData<APIResponse> = MutableLiveData()
+    fun getAPIResponseData(): MutableLiveData<APIResponse> {
         getAPIUpdates()
         return apiResponseData
     }
@@ -22,34 +21,19 @@ class NetworkDataSource private constructor(private val context: Context) {
         val service: NetworkService = RetrofitClientInstance.retrofitInstance.create(
             NetworkService::class.java
         )
-        val call: Call<ApiResponseData> = service.getApiData()
-        call.enqueue(object : Callback<ApiResponseData> {
-            override fun onFailure(call: Call<ApiResponseData>, t: Throwable) {
-                Toast.makeText(context, t.localizedMessage, Toast.LENGTH_LONG).show()
+        val call: Call<APIResponseData> = service.getApiData()
+        call.enqueue(object : Callback<APIResponseData> {
+            override fun onFailure(call: Call<APIResponseData>, t: Throwable) {
+                apiResponseData.postValue(APIResponse(null, t))
             }
 
             override fun onResponse(
-                call: Call<ApiResponseData>,
-                response: Response<ApiResponseData>
+                call: Call<APIResponseData>,
+                response: Response<APIResponseData>
             ) {
-                apiResponseData.postValue(response.body())
+                apiResponseData.postValue(APIResponse(response.body()))
             }
 
         })
     }
-
-    companion object {
-        private var sInstance: NetworkDataSource? = null
-
-        fun getInstance(context: Context): NetworkDataSource {
-            if (sInstance == null) {
-                sInstance =
-                    NetworkDataSource(
-                        context
-                    )
-            }
-            return sInstance as NetworkDataSource
-        }
-    }
-
 }

@@ -1,7 +1,8 @@
 package com.example.softvisiontestapp.data
 
 import androidx.lifecycle.LiveData
-import com.example.softvisiontestapp.data.model.ApiResponseData
+import com.example.softvisiontestapp.data.model.APIResponse
+import com.example.softvisiontestapp.data.model.APIResponseData
 import com.example.softvisiontestapp.data.network.NetworkDataSource
 
 /**
@@ -10,8 +11,8 @@ import com.example.softvisiontestapp.data.network.NetworkDataSource
 class Repository private constructor(private val networkDataSource: NetworkDataSource) {
 
     //return data from network class
-    fun getAPIResponse(): LiveData<ApiResponseData> {
-        return networkDataSource.getApiResponseData()
+    fun getAPIResponse(): LiveData<APIResponse> {
+        return networkDataSource.getAPIResponseData()
     }
 
     companion object {

@@ -7,9 +7,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.softvisiontestapp.R
-import com.example.softvisiontestapp.data.model.ApiResponseData
+import com.example.softvisiontestapp.data.model.APIResponse
 import com.example.softvisiontestapp.utils.InjectorUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,15 +21,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpListView()
         setUpSwipeRefresh()
-        val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory(applicationContext)
+        val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory()
         //bind view model and activity
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
-        viewModel.apiResponseData.observe(this, Observer<ApiResponseData> { apiData ->
-            //update data list in adapter
-            listAdapter.rows = apiData.rows
-            //set actionbar title
-            supportActionBar?.title = apiData.title
-            //hide progress refresh after data has been updated
+        viewModel.apiResponseData.observe(this, Observer<APIResponse> { apiResponse ->
+            if(apiResponse.data != null) {
+                //update data list in adapter
+                listAdapter.rows = apiResponse.data.rows
+                //set actionbar title
+                supportActionBar?.title = apiResponse.data.title
+            } else if(apiResponse.throwable != null) {
+                //show error message if data is null
+                Toast.makeText(this, apiResponse.throwable.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+            //hide progress refresh after data has been updated or error message shown
             swipeRefreshLayout.isRefreshing = false
         })
         viewModel.getApiData()
