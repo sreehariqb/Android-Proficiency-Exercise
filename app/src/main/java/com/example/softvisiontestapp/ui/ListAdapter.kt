@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.softvisiontestapp.R
 import com.example.softvisiontestapp.data.model.Row
 import com.squareup.picasso.Picasso
+
 
 class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
     var rows = listOf<Row>()
@@ -34,9 +36,25 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ListItemViewHolder, position: Int) {
-        holder.titleView.setText(rows.get(position).title)
-        holder.descriptionView.setText(rows.get(position).description)
-        Picasso.get().load(rows.get(position).imageHref)
-            .into(holder.imageView)
+        if(rows[position].title.isNullOrEmpty() && rows[position].description.isNullOrEmpty() &&
+                rows[position].imageHref.isNullOrEmpty()) {
+            //hide the row, when the data is empty
+            holder.itemView.visibility = View.GONE
+            //to avoid taking up empty space, make layout width and height zero
+            holder.itemView.layoutParams = ConstraintLayout.LayoutParams(0, 0)
+        } else {
+            //make the item visible and add margin
+            holder.itemView.visibility = View.VISIBLE
+            //establish item view width, height and bottom margin
+            val layoutParams = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            layoutParams.bottomMargin = 8
+            holder.itemView.layoutParams = layoutParams
+
+            //bind data into the view
+            holder.titleView.text = rows[position].title
+            holder.descriptionView.text = rows[position].description
+            Picasso.get().load(rows[position].imageHref)
+                .into(holder.imageView)
+        }
     }
 }
