@@ -2,7 +2,6 @@ package com.example.softvisiontestapp.data
 
 import androidx.lifecycle.LiveData
 import com.example.softvisiontestapp.data.model.APIResponse
-import com.example.softvisiontestapp.data.model.APIResponseData
 import com.example.softvisiontestapp.data.network.NetworkDataSource
 
 /**

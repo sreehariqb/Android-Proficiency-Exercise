@@ -3,13 +3,12 @@ package com.example.softvisiontestapp.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.softvisiontestapp.R
 import com.example.softvisiontestapp.data.model.Row
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.list_item_view.view.*
 
 /**
  * supplies views from [rows] for [MainActivity] list view
@@ -20,12 +19,6 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
             field = value
             notifyDataSetChanged()
         }
-
-    class ListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleView: TextView = itemView.findViewById(R.id.title)
-        val descriptionView: TextView = itemView.findViewById(R.id.description)
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -53,10 +46,12 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
             holder.itemView.layoutParams = layoutParams
 
             //bind data into the view
-            holder.titleView.text = rows[position].title
-            holder.descriptionView.text = rows[position].description
+            holder.itemView.title.text = rows[position].title
+            holder.itemView.description.text = rows[position].description
             Picasso.get().load(rows[position].imageHref)
-                .into(holder.imageView)
+                .into(holder.itemView.imageView)
         }
     }
+
+    class ListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
