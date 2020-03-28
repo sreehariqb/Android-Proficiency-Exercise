@@ -4,8 +4,12 @@ import androidx.lifecycle.LiveData
 import com.example.softvisiontestapp.data.model.ApiResponseData
 import com.example.softvisiontestapp.data.network.NetworkDataSource
 
+/**
+ * A single source of truth for data
+ */
 class Repository private constructor(private val networkDataSource: NetworkDataSource) {
 
+    //return data from network class
     fun getAPIResponse(): LiveData<ApiResponseData> {
         return networkDataSource.getApiResponseData()
     }

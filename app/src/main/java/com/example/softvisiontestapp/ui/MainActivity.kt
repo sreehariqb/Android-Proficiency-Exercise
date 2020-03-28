@@ -23,15 +23,22 @@ class MainActivity : AppCompatActivity() {
         setUpListView()
         setUpSwipeRefresh()
         val factory: MainActivityViewModelFactory = InjectorUtils.provideMainActivityViewModelFactory(applicationContext)
+        //bind view model and activity
         viewModel = ViewModelProviders.of(this, factory).get(MainActivityViewModel::class.java)
         viewModel.apiResponseData.observe(this, Observer<ApiResponseData> { apiData ->
+            //update data list in adapter
             listAdapter.rows = apiData.rows
+            //set actionbar title
             supportActionBar?.title = apiData.title
+            //hide progress refresh after data has been updated
             swipeRefreshLayout.isRefreshing = false
         })
         viewModel.getApiData()
     }
 
+    /**
+     * show progress refresh and set on refresh listener
+     */
     private fun setUpSwipeRefresh() {
         swipeRefreshLayout.isRefreshing = true
         swipeRefreshLayout.setOnRefreshListener {
@@ -39,6 +46,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * set up list view and attach adapter
+     */
     private fun setUpListView() {
         val listView: RecyclerView = findViewById(R.id.dataListView)
         listView.layoutManager = LinearLayoutManager(

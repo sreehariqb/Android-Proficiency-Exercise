@@ -8,6 +8,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Handles network operations
+ */
 class NetworkDataSource private constructor(private val context: Context) {
     private val apiResponseData: MutableLiveData<ApiResponseData> = MutableLiveData()
     fun getApiResponseData(): MutableLiveData<ApiResponseData> {

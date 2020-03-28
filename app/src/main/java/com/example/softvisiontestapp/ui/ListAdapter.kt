@@ -11,7 +11,9 @@ import com.example.softvisiontestapp.R
 import com.example.softvisiontestapp.data.model.Row
 import com.squareup.picasso.Picasso
 
-
+/**
+ * supplies views from [rows] for [MainActivity] list view
+ */
 class ListAdapter: RecyclerView.Adapter<ListAdapter.ListItemViewHolder>() {
     var rows = listOf<Row>()
         set(value) {
