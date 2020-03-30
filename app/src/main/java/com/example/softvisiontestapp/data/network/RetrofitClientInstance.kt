@@ -1,6 +1,6 @@
 package com.example.softvisiontestapp.data.network
 
-import com.example.softvisiontestapp.data.network.NetworkConstants.BASE_URL
+import com.example.softvisiontestapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,7 +11,7 @@ internal object RetrofitClientInstance {
     val retrofitInstance: Retrofit
         get() {
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

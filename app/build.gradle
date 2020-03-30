@@ -17,10 +17,19 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            debuggable true
+            buildConfigField 'String', 'BASE_URL', '"https://dl.dropboxusercontent.com/"'
+            applicationIdSuffix = '.debug'
+        }
+        release {
+            minifyEnabled true
+            debuggable false
+            buildConfigField 'String', 'BASE_URL', '"https://dl.dropboxusercontent.com/"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
     }
 }
 
