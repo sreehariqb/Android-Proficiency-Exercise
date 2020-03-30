@@ -1,6 +1,7 @@
 package com.example.softvisiontestapp.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -27,11 +28,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.apiResponseData.observe(this, Observer<APIResponse> { apiResponse ->
             if(apiResponse.data != null) {
                 //update data list in adapter
+                dataListView.visibility = View.VISIBLE
                 listAdapter.rows = apiResponse.data.rows
                 //set actionbar title
                 supportActionBar?.title = apiResponse.data.title
             } else if(apiResponse.throwable != null) {
                 //show error message if data is null
+                dataListView.visibility = View.GONE
                 Toast.makeText(this, apiResponse.throwable.localizedMessage, Toast.LENGTH_LONG).show()
             }
             //hide progress refresh after data has been updated or error message shown
