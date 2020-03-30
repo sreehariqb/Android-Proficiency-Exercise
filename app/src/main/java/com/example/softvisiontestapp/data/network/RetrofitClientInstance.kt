@@ -1,5 +1,6 @@
 package com.example.softvisiontestapp.data.network
 
+import com.example.softvisiontestapp.data.network.NetworkConstants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
