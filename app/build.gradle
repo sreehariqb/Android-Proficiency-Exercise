@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -18,18 +17,19 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            debuggable true
+            buildConfigField 'String', 'BASE_URL', '"https://dl.dropboxusercontent.com/"'
+            applicationIdSuffix = '.debug'
+        }
+        release {
+            minifyEnabled true
+            debuggable false
+            buildConfigField 'String', 'BASE_URL', '"https://dl.dropboxusercontent.com/"'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    dataBinding {
-        enabled = true
-    }
-    kapt {
-        arguments {
-            arg("key", "value")
-        }
+
     }
 }
 
@@ -43,9 +43,23 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //recycler view
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
-    kapt("groupId:artifactId:version")
+    //Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofitVersion"
+
+    //okhttp logging interceptor for network call logs in debug mode.
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+    //Picasso image loader library
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 }
